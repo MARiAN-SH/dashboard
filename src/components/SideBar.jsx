@@ -5,11 +5,11 @@ import { SiShopware } from "react-icons/si";
 import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
+import { useStateContext } from "../contexts/ContextProvider";
 
 import { links } from "../data/dummy";
 const SideBar = () => {
-    const activeMenu = true;
-
+    const { activeMenu, setActiveMenu } = useStateContext();
     const actiLink =
         "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2";
     const normalLink =
@@ -22,7 +22,7 @@ const SideBar = () => {
                     <div className="flex justify-between items-center">
                         <Link
                             to="/"
-                            onClick={() => {}}
+                            onClick={() => setActiveMenu(false)}
                             className="items-center  gap-3 ml-3 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
                             <SiShopware className="text-3xl" />{" "}
                             <span>Shoppy</span>
@@ -32,7 +32,11 @@ const SideBar = () => {
                             position="BottomCenter">
                             <button
                                 type="button"
-                                onClick={() => {}}
+                                onClick={() =>
+                                    setActiveMenu(
+                                        (prevActiveMenu) => !prevActiveMenu,
+                                    )
+                                }
                                 className="text-3xl router-full hover:drop-shadow-xl hover:bg-light-gray block "
                                 style={{ borderRadius: "50%" }}>
                                 <MdOutlineCancel />
@@ -49,9 +53,11 @@ const SideBar = () => {
                                     <NavLink
                                         to={`/${link.name}}`}
                                         key={link.name}
-                                        onClick={() => {}}
+                                        onClick={() =>''
+                                            // setActiveMenu(() => !activeMenu)
+                                        }
                                         className={({ isActive }) =>
-                                            isActive ? actiLink : normalLink
+                                            console.log(isActive)
                                         }>
                                         {link.icon}
                                         <span className="capitalize">
